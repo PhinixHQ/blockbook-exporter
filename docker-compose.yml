@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  app:
+    image: phinixhq/blockbook-exporter
+    restart: unless-stopped
+    environment: 
+      REFRESH_INTERVAL_MILLISECONDS: "60000"
+      BLOCKBOOK_GLOBAL_SCAN_BASE_URL: 
+      BLOCKBOOK_HOSTED_BASE_URL:
+      COIN_NAME:
+    ports:
+      - "9099:9099"
