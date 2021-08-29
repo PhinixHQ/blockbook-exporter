@@ -11,12 +11,12 @@ const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL
 
 const blockbookGlobalScanUpGauge = new client.Gauge({ name: 'blockbook_global_up', help: 'if blockbook_global is accessible', labelNames: ['coin']});
 const blockbookGlobalCurrentBlockGauge = new client.Gauge({ name: 'blockbook_global_current_block', help: 'number of current block', labelNames: ['coin'] });
-const blockbookGlobalLastUpdateGauge = new client.Gauge({ name: 'blockbook_global_last_update_seconds', help: 'number of latest block', labelNames: ['coin'] });
+const blockbookGlobalLastUpdateGauge = new client.Gauge({ name: 'blockbook_global_last_update_seconds', help: 'last time the exporter updated data from the global blockbook', labelNames: ['coin'] });
 
 const blockbookHostedUpGauge = new client.Gauge({ name: 'blockbook_hosted_up', help: 'if blockbook hosted is accessible', labelNames: ['coin'] });
 const blockbookHostedCurrentBlockGauge = new client.Gauge({ name: 'blockbook_hosted_current_block', help: 'number of current block' , labelNames: ['coin']});
-const blockbookHostedIssyncedGauge = new client.Gauge({ name: 'blockbook_hosted_isSynced', help: 'whether blockbook synced with backend or not' , labelNames: ['coin']});
-const blockbookHostedLastUpdateGauge = new client.Gauge({ name: 'blockbook_hosted_last_update_seconds', help: 'number of latest block', labelNames: ['coin'] });
+const blockbookHostedIssyncedGauge = new client.Gauge({ name: 'blockbook_hosted_in_sync', help: 'whether blockbook synced with backend or not' , labelNames: ['coin']});
+const blockbookHostedLastUpdateGauge = new client.Gauge({ name: 'blockbook_hosted_last_update_seconds', help: 'last time the exporter updated data from the local blockbook', labelNames: ['coin'] });
 
 
 
