@@ -8,5 +8,4 @@ services:
       BLOCKBOOK_GLOBAL_SCAN_BASE_URL: 
       BLOCKBOOK_HOSTED_BASE_URL:
       COIN_NAME:
-    ports:
-      - "9099:9099"
+    network_mode: "host"
