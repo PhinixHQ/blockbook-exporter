@@ -4,7 +4,7 @@ const app = express();
 require('dotenv').config();
 const client = require('prom-client');
 const https = require('https'); 
-axios.defaults.timeout = 4000;
+axios.defaults.timeout = parseInt(process.env.AXIOS_TIMEOUT);
 // URLs
 const blockbookGlobalScanApiUrl = process.env.BLOCKBOOK_GLOBAL_SCAN_BASE_URL
 const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL

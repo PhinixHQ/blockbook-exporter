@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment: 
       REFRESH_INTERVAL_MILLISECONDS: "60000"
+      AXIOS_TIMEOUT: "4000"
       BLOCKBOOK_GLOBAL_SCAN_BASE_URL: 
       BLOCKBOOK_HOSTED_BASE_URL:
       COIN_NAME:
