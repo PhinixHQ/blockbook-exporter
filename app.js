@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const client = require('prom-client');
-const https = require('https');
+const https = require('https'); 
+axios.defaults.timeout = 4000;
 // URLs
 const blockbookGlobalScanApiUrl = process.env.BLOCKBOOK_GLOBAL_SCAN_BASE_URL
 const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL
@@ -22,7 +23,10 @@ const blockbookHostedLastUpdateGauge = new client.Gauge({ name: 'blockbook_hoste
 
 async function updateBlockbookglobalMetrics(){
     try{
+        console.log('starting blockbookGlobalLatestBlock');
         const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl, {headers: {'user-agent':'phinix'}});
+        console.log('done blockbookGlobalLatestBlock');
+        console.log('///////////////////////////////');
         const coinName = blockbookGlobalLatestBlock.data.blockbook.coin;
         blockbookGlobalScanUpGauge.set({ coin: coinName } , 1);
         blockbookGlobalCurrentBlockGauge.set({ coin: coinName } ,blockbookGlobalLatestBlock.data.blockbook.bestHeight);
@@ -30,6 +34,7 @@ async function updateBlockbookglobalMetrics(){
     }
     catch(err) {
         console.log(err);
+        console.log('error on blockbookGlobalLatestBlock');
         blockbookGlobalScanUpGauge.set({ coin: process.env.COIN_NAME }, 0);
     }
 }
@@ -40,7 +45,10 @@ async function updateBlockbookHostedMetrics(){
         const agent = new https.Agent({  
             rejectUnauthorized: false
           });
+        console.log('starting blockbookHostedLatestBlock');
         const blockbookHostedLatestBlock = await axios.get(blockbookHostedApiUrl, {httpsAgent: new https.Agent({ rejectUnauthorized: false })});
+        console.log('done blockbookHostedLatestBlock');
+        console.log('///////////////////////////////');
         const coinName = blockbookHostedLatestBlock.data.blockbook.coin;
         blockbookHostedUpGauge.set({ coin: coinName } ,1);
         blockbookHostedCurrentBlockGauge.set({ coin: coinName } ,blockbookHostedLatestBlock.data.blockbook.bestHeight);
@@ -57,6 +65,7 @@ async function updateBlockbookHostedMetrics(){
     }
     catch(err){
         console.log(err);
+        console.log('error blockbookHostedLatestBlock');
         blockbookHostedUpGauge.set({ coin: process.env.COIN_NAME } ,0);
     }
 }
