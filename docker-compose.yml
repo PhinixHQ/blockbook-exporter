@@ -9,4 +9,6 @@ services:
       BLOCKBOOK_GLOBAL_SCAN_BASE_URL: 
       BLOCKBOOK_HOSTED_BASE_URL:
       COIN_NAME:
+      SENTRY_DSN:
+      SCOPE:
     network_mode: "host"

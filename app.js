@@ -5,6 +5,14 @@ require('dotenv').config();
 const client = require('prom-client');
 const https = require('https'); 
 axios.defaults.timeout = parseInt(process.env.AXIOS_TIMEOUT);
+const Sentry = require('@sentry/node');
+
+// Sentry
+Sentry.init({ dsn: process.env.SENTRY_DSN });
+Sentry.configureScope(scope => {
+    scope.setTag('coin', process.env.COIN_NAME);
+    scope.setTag('scope', process.env.SCOPE);
+  });
 // URLs
 const blockbookGlobalScanApiUrl = process.env.BLOCKBOOK_GLOBAL_SCAN_BASE_URL
 const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL
@@ -33,6 +41,7 @@ async function updateBlockbookglobalMetrics(){
         blockbookGlobalLastUpdateGauge.set({ coin: coinName } ,Math.floor(Date.now() / 1000));
     }
     catch(err) {
+        Sentry.captureException(err);
         console.log(err);
         console.log('error on blockbookGlobalLatestBlock');
         blockbookGlobalScanUpGauge.set({ coin: process.env.COIN_NAME }, 0);
@@ -64,6 +73,7 @@ async function updateBlockbookHostedMetrics(){
         blockbookHostedLastUpdateGauge.set({ coin: coinName } ,Math.floor(Date.now() / 1000));
     }
     catch(err){
+        Sentry.captureException(err);
         console.log(err);
         console.log('error blockbookHostedLatestBlock');
         blockbookHostedUpGauge.set({ coin: process.env.COIN_NAME } ,0);
