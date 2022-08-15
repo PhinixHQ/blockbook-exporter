@@ -17,7 +17,6 @@ Sentry.configureScope(scope => {
 // URLs
 const blockbookGlobalScanApiUrl = process.env.BLOCKBOOK_GLOBAL_SCAN_BASE_URL
 const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL
-const proxy = process.env.HTTP_PROXY
 
 
 const blockbookGlobalScanUpGauge = new client.Gauge({ name: 'blockbook_global_up', help: 'if blockbook_global is accessible', labelNames: ['coin']});
@@ -35,14 +34,14 @@ async function updateBlockbookglobalMetrics(){
     try{
         console.log('starting blockbookGlobalLatestBlock');
         
-        
         const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl, {
             headers: {
                 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
             },
             proxy: false,
-            httpsAgent: new HttpsProxyAgent.HttpsProxyAgent(proxy)
+            httpsAgent: new HttpsProxyAgent.HttpsProxyAgent(`https://${process.env.HTTP_PROXY_USERNAME}:${process.env.HTTP_PROXY_PASSWORD}@${process.env.HTTP_PROXY_HOST}:${process.env.HTTP_PROXY_PORT}`)
         });
+}
     
         console.log('done blockbookGlobalLatestBlock');
         console.log('///////////////////////////////');
