@@ -41,7 +41,6 @@ async function updateBlockbookglobalMetrics(){
             proxy: false,
             httpsAgent: new HttpsProxyAgent.HttpsProxyAgent(`https://${process.env.HTTP_PROXY_USERNAME}:${process.env.HTTP_PROXY_PASSWORD}@${process.env.HTTP_PROXY_HOST}:${process.env.HTTP_PROXY_PORT}`)
         });
-}
     
         console.log('done blockbookGlobalLatestBlock');
         console.log('///////////////////////////////');
