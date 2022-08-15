@@ -1,4 +1,4 @@
-import axios from 'axios-https-proxy-fix'; 
+const axios = require('axios-https-proxy-fix');
 const express = require('express');
 const app = express();
 require('dotenv').config();
