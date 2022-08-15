@@ -19,9 +19,6 @@ const blockbookGlobalScanApiUrl = process.env.BLOCKBOOK_GLOBAL_SCAN_BASE_URL
 const blockbookHostedApiUrl = process.env.BLOCKBOOK_HOSTED_BASE_URL
 const proxy = process.env.HTTP_PROXY
 
-var proxy_agent = new HttpsProxyAgent(proxy);
-
-
 
 const blockbookGlobalScanUpGauge = new client.Gauge({ name: 'blockbook_global_up', help: 'if blockbook_global is accessible', labelNames: ['coin']});
 const blockbookGlobalCurrentBlockGauge = new client.Gauge({ name: 'blockbook_global_current_block', help: 'number of current block', labelNames: ['coin'] });
@@ -37,7 +34,17 @@ const blockbookHostedLastUpdateGauge = new client.Gauge({ name: 'blockbook_hoste
 async function updateBlockbookglobalMetrics(){
     try{
         console.log('starting blockbookGlobalLatestBlock');
-        const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl,  {headers: {'user-agent':'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0'}}, httpsAgent: proxy_agent);
+        
+        
+        const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl, {
+            headers: {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
+            },
+            proxy: false,
+            httpsAgent: new HttpsProxyAgent.HttpsProxyAgent(proxy)
+        });
+}
+    
         console.log('done blockbookGlobalLatestBlock');
         console.log('///////////////////////////////');
         const coinName = blockbookGlobalLatestBlock.data.blockbook.coin;
