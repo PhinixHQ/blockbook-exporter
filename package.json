@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios-https-proxy-fix": "0.17.1"
+    "axios-https-proxy-fix": "^0.17.1",
     "@sentry/node": "^6.15.0",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
