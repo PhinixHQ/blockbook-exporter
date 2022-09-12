@@ -42,8 +42,10 @@ async function updateBlockbookglobalMetrics(){
             password: process.env.HTTP_PROXY_PASSWORD
           }
          };    
-   
-        const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl,{headers: {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}, proxy});
+         
+        const userAgent = process.env.USER_AGENT;
+
+        const blockbookGlobalLatestBlock = await axios.get(blockbookGlobalScanApiUrl,{headers: {'user-agent': userAgent}, proxy});
     
         console.log('done blockbookGlobalLatestBlock');
         console.log('///////////////////////////////');
